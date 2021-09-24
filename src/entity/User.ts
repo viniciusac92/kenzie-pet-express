@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    BeforeInsert,
+    BeforeUpdate,
+} from 'typeorm';
+import bcrypt from 'bcrypt';
 
 @Entity()
 export class User {
@@ -6,11 +13,19 @@ export class User {
     id!: number;
 
     @Column()
-    firstName!: string;
+    username!: string;
 
     @Column()
-    lastName!: string;
+    password!: string;
 
-    @Column()
-    age!: number;
+    constructor(data: Partial<User>) {
+        Object.assign(this, data);
+    }
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword() {
+        console.log(this.password);
+        this.password = bcrypt.hashSync(this.password, 8);
+    }
 }
