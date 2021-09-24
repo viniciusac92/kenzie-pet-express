@@ -1,16 +1,17 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class User {
+export class Group {
     @PrimaryGeneratedColumn()
     id!: number;
 
     @Column()
-    firstName!: string;
+    name!: string;
 
     @Column()
-    lastName!: string;
+    scientific_name!: string;
 
-    @Column()
-    age!: number;
+    constructor(data: Partial<Group>) {
+        Object.assign(this, data);
+    }
 }

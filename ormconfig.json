@@ -1,6 +1,6 @@
 {
    "type": "postgres",
-   "url": "postgres://vinicius:4321@localhost:5432/kenziePetNode",
+   "url": "postgres://vinicius:4321@localhost:5432/kenziepetnode",
    "extra":{ "ssl":{ "rejectUnauthorized": false } },
    "synchronize": true,
    "logging": false,
