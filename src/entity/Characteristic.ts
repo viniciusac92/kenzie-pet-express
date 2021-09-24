@@ -15,10 +15,6 @@ export class Characteristic {
     @Column()
     name!: string;
 
-    @ManyToMany(() => Animal)
-    @JoinTable()
-    animalsChars!: Animal[];
-
     constructor(data: Partial<Characteristic>) {
         Object.assign(this, data);
     }

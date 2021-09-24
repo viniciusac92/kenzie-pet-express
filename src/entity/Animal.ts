@@ -26,8 +26,12 @@ export class Animal {
     @Column()
     sex!: string;
 
-    @ManyToOne(() => Group, group => group.animals)
-    group!: Group;
+    @ManyToOne(() => Group)
+    group!: Group[];
+
+    @ManyToMany(() => Characteristic)
+    @JoinTable()
+    chars!: Characteristic[];
 
     constructor(data: Partial<Animal>) {
         Object.assign(this, data);
