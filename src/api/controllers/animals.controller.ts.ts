@@ -1,10 +1,26 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import { Animal } from '../../entity';
+import { Animal, Group, Characteristic } from '../../entity';
+import { groupService } from '../../services';
 
-export const list = async (req: Request, res: Response) => {
-    const animalsRepository = getRepository(Animal);
-    const animals: Array<Animal> = await animalsRepository.find();
+export default class AnimalController {
+    async list(req: Request, res: Response) {
+        const animalsRepository = getRepository(Animal);
+        try {
+            const animals: Array<Animal> = await animalsRepository.find();
+            return res.status(200).send(animals);
+        } catch (error) {
+            return res.status(500).send(error);
+        }
+    }
 
-    res.send(animals);
-};
+    create = async (req: Request, res: Response) => {
+        const animalsRepository = getRepository(Animal);
+        const groupRepository = getRepository(Group);
+        const characRepository = getRepository(Characteristic);
+
+        const { name, age, weight, sex, group, characteristics } = req.body;
+
+        const groupData = groupService(group);
+    };
+}

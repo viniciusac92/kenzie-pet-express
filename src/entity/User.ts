@@ -18,6 +18,9 @@ export class User {
     @Column()
     password!: string;
 
+    @Column()
+    is_superuser!: boolean;
+
     constructor(data: Partial<User>) {
         Object.assign(this, data);
     }
