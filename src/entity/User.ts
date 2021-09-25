@@ -21,10 +21,6 @@ export class User {
     @Column()
     is_superuser!: boolean;
 
-    constructor(data: Partial<User>) {
-        Object.assign(this, data);
-    }
-
     @BeforeInsert()
     @BeforeUpdate()
     hashPassword() {

@@ -10,8 +10,4 @@ export class Group {
 
     @Column()
     scientific_name!: string;
-
-    constructor(data: Partial<Group>) {
-        Object.assign(this, data);
-    }
 }

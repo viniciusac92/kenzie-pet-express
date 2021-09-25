@@ -1,11 +1,4 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    ManyToMany,
-    JoinTable,
-} from 'typeorm';
-import { Animal } from './Animal';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Characteristic {
@@ -14,8 +7,4 @@ export class Characteristic {
 
     @Column()
     name!: string;
-
-    constructor(data: Partial<Characteristic>) {
-        Object.assign(this, data);
-    }
 }

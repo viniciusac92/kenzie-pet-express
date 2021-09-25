@@ -26,14 +26,10 @@ export class Animal {
     @Column()
     sex!: string;
 
-    @ManyToOne(() => Group)
+    @ManyToOne(() => Group, { cascade: true, lazy: false })
     group!: Group[];
 
-    @ManyToMany(() => Characteristic)
+    @ManyToMany(() => Characteristic, { cascade: true })
     @JoinTable()
     chars!: Characteristic[];
-
-    constructor(data: Partial<Animal>) {
-        Object.assign(this, data);
-    }
 }
