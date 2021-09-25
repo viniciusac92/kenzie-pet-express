@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { getRepository, Repository } from 'typeorm';
 import { Animal, Group, Characteristic } from '../../entity';
-import { groupService } from '../../services';
 
 export default class AnimalController {
     async list(req: Request, res: Response) {
@@ -14,6 +13,22 @@ export default class AnimalController {
         }
     }
 
+    async retrieve(req: Request, res: Response) {
+        const animalsRepository: Repository<Animal> = getRepository(Animal);
+
+        const animalData: Animal | undefined =
+            await animalsRepository.findOneOrFail({
+                where: { id: req.params.animal_id },
+                relations: ['group', 'chars'],
+            });
+
+        if (!animalData) {
+            return res.status(404).send({ error: 'Animal not found' });
+        }
+        return res.status(200).send(animalData);
+    }
+
+    //somente superuser true pode criar
     async create(req: Request, res: Response) {
         const animalsRepository: Repository<Animal> = getRepository(Animal);
 

@@ -7,6 +7,7 @@ export default (): Router => {
     const animalController = new AnimalController();
 
     router.get('/', animalController.list);
+    router.get('/:animal_id', animalController.retrieve);
     router.post('/', animalController.create);
 
     return router;
