@@ -26,10 +26,12 @@ export class Animal {
     @Column()
     sex!: string;
 
-    @ManyToOne(() => Group, { cascade: true, lazy: false })
-    group!: Group[];
+    @ManyToOne(() => Group, group => group.animals, { cascade: true })
+    group!: Group;
 
-    @ManyToMany(() => Characteristic, { cascade: true })
+    @ManyToMany(() => Characteristic, {
+        cascade: ['insert', 'update', 'remove'],
+    })
     @JoinTable()
-    chars!: Characteristic[];
+    characts!: Characteristic[];
 }
