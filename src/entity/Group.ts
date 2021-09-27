@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Animal } from './Animal';
 
 @Entity()
 export class Group {
@@ -11,7 +12,9 @@ export class Group {
     @Column()
     scientific_name!: string;
 
-    constructor(data: Partial<Group>) {
-        Object.assign(this, data);
-    }
+    @OneToMany(() => Animal, animal => animal.group, {
+        cascade: ['insert', 'update'],
+        lazy: false,
+    })
+    animals!: Animal[];
 }
