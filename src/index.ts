@@ -6,8 +6,6 @@ import passport from 'passport';
 
 const app = express();
 
-console.log('Entrou no app');
-
 app.use(express.json());
 
 app.use(passport.initialize());

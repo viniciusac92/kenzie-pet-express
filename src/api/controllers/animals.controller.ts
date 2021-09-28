@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository, Repository, UpdateResult } from 'typeorm';
-import { Animal, Group, Characteristic } from '../../entity';
+import { Animal } from '../../entity';
+import { buildAnimal } from '../../services';
 
 export default class AnimalController {
     async list(req: Request, res: Response) {
@@ -32,24 +33,10 @@ export default class AnimalController {
 
     async create(req: Request, res: Response) {
         const animalsRepository: Repository<Animal> = getRepository(Animal);
-        const animalData = new Animal();
-        const groupData = new Group();
 
-        const { name, age, weight, sex, group, characteristics } = req.body;
-        const { name: groupName, scientific_name } = group;
-
-        animalData.name = name;
-        animalData.age = age;
-        animalData.weight = weight;
-        animalData.sex = sex;
-
-        groupData.name = groupName;
-        groupData.scientific_name = scientific_name;
-
-        animalData.group = groupData;
-        animalData.characts = characteristics as Characteristic[];
-
+        const animalData = buildAnimal(req);
         const animalSaved = await animalsRepository.save(animalData);
+
         return res.status(201).send(animalSaved);
     }
 
@@ -79,8 +66,8 @@ export default class AnimalController {
 
     async destroy(req: Request, res: Response) {
         const animalsRepository: Repository<Animal> = getRepository(Animal);
-        const { animal_id } = req.params;
 
+        const { animal_id } = req.params;
         await animalsRepository.delete(parseInt(animal_id));
 
         return res.sendStatus(204);

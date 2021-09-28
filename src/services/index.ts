@@ -1,3 +1,3 @@
-import { groupService } from './group.services';
+import { buildAnimal } from './buildAnimal.services';
 
-export { groupService };
+export { buildAnimal };

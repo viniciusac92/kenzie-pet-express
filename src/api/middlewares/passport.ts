@@ -11,13 +11,11 @@ export default () => {
 
     const verify = async (jwt_payload: any, done: any) => {
         const repo = getRepository(User);
-
         const user = await repo.findOne({
             where: { username: jwt_payload.username },
         });
-        // console.log(jwt_payload.username);
-        // console.log(user);
         done(null, user ? user : false);
     };
+
     return new Strategy(optionsStrat, verify);
 };
