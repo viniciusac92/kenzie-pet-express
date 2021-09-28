@@ -30,7 +30,6 @@ export default class AnimalController {
         return res.status(200).send(animalData);
     }
 
-    //somente superuser true pode criar
     async create(req: Request, res: Response) {
         const animalsRepository: Repository<Animal> = getRepository(Animal);
         const animalData = new Animal();

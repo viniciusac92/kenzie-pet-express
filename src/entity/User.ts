@@ -24,7 +24,6 @@ export class User {
     @BeforeInsert()
     @BeforeUpdate()
     hashPassword() {
-        console.log(this.password);
         this.password = bcrypt.hashSync(this.password, 8);
     }
 }
